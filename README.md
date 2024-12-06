@@ -1,0 +1,1 @@
+Showing related blog posts in content detail pages is one of the important steps for improving SEO and UX. If you're looking for a solid responsive and good look solution, just add this liquid code as via "Custom liquid" in Blog Posts in Shopify and then just copy + paste the CSS code in your theme.css.
