@@ -1,0 +1,87 @@
+{% assign current_tags = article.tags %}
+{% assign related_articles = blog.articles | where: "tags", current_tags | limit: 4 %}
+
+{% if related_articles.size > 0 %}
+  <div class="related-posts">
+    <h3>Related Posts</h3>
+    <div class="related-posts-grid">
+      {% for related_article in related_articles %}
+        {% unless related_article.id == article.id %}
+          <div class="related-post-item">
+            {% if related_article.image %}
+              <a href="{{ related_article.url }}">
+                <img src="{{ related_article.image | img_url: '300x300', crop: 'center' }}" alt="{{ related_article.title }}">
+              </a>
+            {% endif %}
+            <h4><a href="{{ related_article.url }}">{{ related_article.title }}</a></h4>
+            <p>{{ related_article.excerpt | strip_html | truncatewords: 25 }}</p>
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}  
+
+
+<style>
+.related-posts {
+  margin-top: 10px;
+}
+
+.related-posts h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.related-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.related-post-item {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.related-post-item:hover {
+  transform: translateY(-5px);
+}
+
+.related-post-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.related-post-item h4 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.related-post-item h4 a {
+  color: #000000;
+  text-decoration: none;
+}
+
+.related-post-item h4 a:hover {
+  text-decoration: underline;
+}
+
+.related-post-item p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .related-posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
